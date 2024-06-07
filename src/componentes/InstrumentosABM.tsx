@@ -135,61 +135,75 @@ const InstrumentosABM = () => {
         });
 
     }
-
+    const generarExcel = () => {
+        window.open("http://localhost:8080/api/Instrumentos/api/downloadExcelPlatos", "_blank");
+    }
     return (
         <div>
             <div className="mb-3 mt-1">
                 <label htmlFor="categoria" className="form-label">Categorias</label>
-                    <select 
-                        className="form-select"
-                        aria-label="Default select example"
-                        id="categoria"
-                        name="categoria"
-                        onChange={(e) => getDatosByCategoria(e.target.value)}
-                        >
-                        <option value="">All</option>
-                        {categorias.map((categoria, index) => (
-                            <>
-                                <option key={index} value={categoria.id}>{categoria.denominacion}</option>
-                            </>
-                        ))}
-                    </select>
+                <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    id="categoria"
+                    name="categoria"
+                    onChange={(e) => getDatosByCategoria(e.target.value)}
+                >
+                    <option value="">All</option>
+                    {categorias.map((categoria, index) => (
+                        <>
+                            <option key={index} value={categoria.id}>{categoria.denominacion}</option>
+                        </>
+                    ))}
+                </select>
             </div>
+            <a className="btn btn-success" onClick={(e) => generarExcel()}>Generar Excel</a>
+            <br/>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                <Table sx={{minWidth: 650}} size="small" aria-label="a dense table">
                     <TableHead>
-                        <TableRow >
+                        <TableRow>
                             <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Nombre</TableCell>
                             <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Marca</TableCell>
                             <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Modelo</TableCell>
-                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Categoria</TableCell>
+                            <TableCell className="border" align="center"
+                                       style={{fontWeight: 'bold'}}>Categoria</TableCell>
                             <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Imagen</TableCell>
                             <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Precio</TableCell>
-                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Costo de envio</TableCell>
-                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Cantidad vendida</TableCell>
-                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Descripcion</TableCell>
-                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Acciones</TableCell>
+                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Costo de
+                                envio</TableCell>
+                            <TableCell className="border" align="center" style={{fontWeight: 'bold'}}>Cantidad
+                                vendida</TableCell>
+                            <TableCell className="border" align="center"
+                                       style={{fontWeight: 'bold'}}>Descripcion</TableCell>
+                            <TableCell className="border" align="center"
+                                       style={{fontWeight: 'bold'}}>Acciones</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
                         {instrumentos.map((instrumento, index) => (
-                            <TableRow key={index} >
+                            <TableRow key={index}>
                                 <TableCell className="border" align="center">{instrumento.instrumento}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.marca}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.modelo}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.categoria}</TableCell>
                                 <TableCell className="border" align="center">
-                                    <img style={{maxWidth: "200px"}} src={instrumento.imagen.length <= 10 ? `/src/assets/img/${instrumento.imagen}` : instrumento.imagen} alt={instrumento.instrumento} />
+                                    <img style={{maxWidth: "200px"}}
+                                         src={instrumento.imagen.length <= 10 ? `/src/assets/img/${instrumento.imagen}` : instrumento.imagen}
+                                         alt={instrumento.instrumento}/>
                                 </TableCell>
                                 <TableCell className="border" align="center">{instrumento.precio}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.costoEnvio}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.cantidadVendida}</TableCell>
                                 <TableCell className="border" align="center">{instrumento.descripcion}</TableCell>
                                 <TableCell className="border" align="center">
-                                    <Button variant="primary" onClick={handleShowModal} className="mt-2">Agregar</Button>
-                                    <Button variant="secondary" onClick={() => handleShowModalEditing(instrumento)} className="mt-2">Modificar</Button>
-                                    <Button variant="danger" onClick={() => handleDelete(instrumento.id)} className="mt-2">Eliminar</Button>
+                                    <Button variant="primary" onClick={handleShowModal}
+                                            className="mt-2">Agregar</Button>
+                                    <Button variant="secondary" onClick={() => handleShowModalEditing(instrumento)}
+                                            className="mt-2">Modificar</Button>
+                                    <Button variant="danger" onClick={() => handleDelete(instrumento.id)}
+                                            className="mt-2">Eliminar</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -197,7 +211,7 @@ const InstrumentosABM = () => {
                 </Table>
             </TableContainer>
 
-            <ModalCustom 
+            <ModalCustom
                 showModal={showModal}
                 editing={editing}
                 instrumento={instrumentoEdit}

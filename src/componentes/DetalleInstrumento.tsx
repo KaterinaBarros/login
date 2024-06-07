@@ -21,7 +21,11 @@ const DetalleInstrumento = () => {
     const getInstrumentos = async () => {
         const data: Instrumento = await getData(`Instrumentos/${id}`);
         setInstrumento(data);
-    }    
+    }
+
+    const generarPDF = () => {
+        window.open("http://localhost:8080/api/Instrumentos/api/downloadPdfPlatos/" + id, "_blank");
+    }
 
     useEffect(() => { getInstrumentos(); }, []);
 
@@ -65,7 +69,10 @@ const DetalleInstrumento = () => {
                 </Card.Body>
 
                 <Card.Footer className="bg-transparent d-flex align-items-center justify-content-center">
-                    <button className="btn btn-outline-primary" onClick={() => handleAddToCart(instrumento)}>Agregar al carrito</button>
+                    <button className="btn btn-outline-primary" onClick={() => handleAddToCart(instrumento)}>Agregar al
+                        carrito
+                    </button>
+                    <a className="btn btn-success" onClick={(e) => generarPDF()}>Generar PDF</a>
                 </Card.Footer>
             </Card>
         </div>

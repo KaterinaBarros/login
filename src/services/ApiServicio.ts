@@ -127,4 +127,30 @@ export async function deleteData(path: string) {
     console.error(error);
   }
 }
+  export async function generarReporteExcel(){
+    console.log("http://localhost:8080/api/Instrumentos/api/downloadExcelPlatos");
+    let urlServer = 'http://localhost:8080/api/Instrumentos/api/downloadExcelPlatos';
+    await fetch(urlServer, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin':'*'
+      },
+      mode: 'cors'
+    });
+  }
+export async function getDatosChartPieFetch(){
+  const urlServer = 'http://localhost:8080/api/Instrumentos/api/datachartpie';
+  const response = await fetch(urlServer, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*'
+    },
+    mode: 'cors'
+  });
+  console.log(response);
+  return await response.json();
+}
+
 
